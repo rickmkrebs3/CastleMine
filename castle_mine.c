@@ -76,6 +76,7 @@ struct d_room *deleteLast();
 struct d_room *deleteSpecific(int r_id);
 bool insertAfter(int r_id, int new_r_id, int r_size);
 bool insertBefore(int r_id, int new_r_id, int r_size);
+struct d_room *makeConnx(int r_id, int_rsize);
 
 /******************************************************************
  * TODO:
@@ -385,6 +386,12 @@ bool insertBefore(int r_id, int new_r_id, int r_size)
 	return true;	
 }
 
+struct d_room *makeConnx(int r_id, int_rsize)
+{
+
+	return true;
+}
+
 void get_player_attributes(int i, int n, int lower, int upper)
 {
 	int a = 0;
@@ -491,7 +498,7 @@ bool create_dungeon(void)
 {
 	int i, j;
 	int num_rm = print_random(6,36);
-	printf("The dungeon will have %d rooms\n", num_rm);
+	printf("The dungeon will have %d rooms\n", num_rm + 1);
 	
 	int rm_size = print_random(50, 10000);
 	insertFirst(0, 2500);
@@ -499,19 +506,12 @@ bool create_dungeon(void)
 		rm_size = print_random(50, 10000);
 		insertAfter(i, j, rm_size); /* meaning insert new room id 4 after room id 2 */
 	}
-	/*
-	insertAfter(4, 7, 3500);
-	insertAfter(7, 9, 1500);
-	insertAfter(9, 13, 2500);
-	insertBefore(13, 11, 5000);
-	insertBefore(7, 6, 7500);
-	*/
 
 	printf("\n\tHere is the list of rooms in the dungeon (from first to last): \n");
 	displayForward();
 
-	printf("\n\tHere is the list of rooms in the dungeon (from last to first): \n");
-	displayBackward();
+	//printf("\n\tHere is the list of rooms in the dungeon (from last to first): \n");
+	//#displayBackward();
 
 	return true;
 }
