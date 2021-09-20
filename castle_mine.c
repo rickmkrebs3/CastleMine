@@ -31,6 +31,13 @@ struct d_room {
 	char r_name[NAME];
 	struct d_room * d_room_ptr_prev;
 	struct d_room * d_room_ptr_next;
+
+	struct d_room * d_room_ptr_0;	/* 1st pointer/connection to other room in dungeon */
+	struct d_room * d_room_ptr_1;	/* 2nd pointer/connection to other room in dungeon */
+	struct d_room * d_room_ptr_2;	/* 3rd pointer/connection to other room in dungeon */
+	struct d_room * d_room_ptr_3;	/* 4th pointer/connection to other room in dungeon */
+	struct d_room * d_room_ptr_4;	/* 5th pointer/connection to other room in dungeon */
+	struct d_room * d_room_ptr_5;	/* 6th pointer/connection to other room in dungeon */
 };
 
 /* main dungeon object, uses doubly-linked list */
@@ -482,14 +489,24 @@ int main_menu(void)
 
 bool create_dungeon(void)
 {
-	insertFirst(1, 2500);
-	insertAfter(1, 4, 1500); /* meaning insert new room id 4 after room id 2 */
+	int i, j;
+	int num_rm = print_random(6,36);
+	printf("The dungeon will have %d rooms\n", num_rm);
+	
+	int rm_size = print_random(50, 10000);
+	insertFirst(0, 2500);
+	for (i = 0, j = 1; i < num_rm; ++i, ++j) {
+		rm_size = print_random(50, 10000);
+		insertAfter(i, j, rm_size); /* meaning insert new room id 4 after room id 2 */
+	}
+	/*
 	insertAfter(4, 7, 3500);
 	insertAfter(7, 9, 1500);
 	insertAfter(9, 13, 2500);
 	insertBefore(13, 11, 5000);
 	insertBefore(7, 6, 7500);
-	
+	*/
+
 	printf("\n\tHere is the list of rooms in the dungeon (from first to last): \n");
 	displayForward();
 
